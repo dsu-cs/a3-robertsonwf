@@ -138,5 +138,5 @@ void BST<T>::remove(T val)
 template<class T>
 int BST<T>::get_size()
 {
-
+    return node_count;
 }
