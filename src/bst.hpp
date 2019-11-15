@@ -40,6 +40,8 @@ private:
     Node<T> *root;
     // the number of nodes in the tree
     int node_count;
+
+    Node<T> *insert_helper(T, Node<T>*);
 };
 
 template<class T>
@@ -87,9 +89,35 @@ template<class T>
 template<class T>
 void BST<T>::insert(T new_data)
 {
-
+        root = insert_helper(new_data, root);
 }
 
+template<class T>
+Node<T> *BST<T>::insert_helper(Node<T> *root, T data)
+{
+    if(root == NULL)
+    {
+        Node<T> *tmp = new Node<T>(data);
+        tmp->set_data(data);
+        tmp->set_left(NULL);
+        tmp->set_right(NULL);
+        node_count++
+        return tmp;
+    }
+    else
+    {
+        if(data < root->get_data())
+        {
+           root->set_left(insert_helper(root->get_left(), data));
+        }
+        else
+        {
+            root->set_right(insert_helper(root->get_right(), data));
+        }
+        
+    }
+   return root;
+}
 
 template<class T>
 Node<T> *BST<T>::search(T val)
