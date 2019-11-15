@@ -41,7 +41,10 @@ private:
     // the number of nodes in the tree
     int node_count;
 
-    Node<T> *insert_helper(T, Node<T>*);
+    Node<T>* insert_helper(Node<T>*, T);
+    Node<T>* search_helper(T, Node<T>*);
+ 
+
 };
 
 template<class T>
@@ -86,22 +89,25 @@ template<class T>
     return vec;
 }
 
+//insert function that calls insert_helper function
 template<class T>
 void BST<T>::insert(T new_data)
 {
-        root = insert_helper(new_data, root);
+    root = insert_helper(root, new_data);
 }
 
+
+//insert_helper function for recursive inserting
 template<class T>
-Node<T> *BST<T>::insert_helper(Node<T> *root, T data)
+Node<T>* BST<T>::insert_helper(Node<T> *root, T data)
 {
     if(root == NULL)
     {
-        Node<T> *tmp = new Node<T>(data);
+        Node<T> *tmp = new Node<T>;
         tmp->set_data(data);
         tmp->set_left(NULL);
         tmp->set_right(NULL);
-        node_count++
+        node_count++;
         return tmp;
     }
     else
@@ -122,9 +128,28 @@ Node<T> *BST<T>::insert_helper(Node<T> *root, T data)
 template<class T>
 Node<T> *BST<T>::search(T val)
 {
-
+    return search_helper(val, root);
 }
 
+template<class T>
+Node<T>* BST<T>::search_helper(T key, Node<T> *currNode)
+{
+    
+    if(currNode == NULL)
+    {
+        return currNode;
+    }
+    else if(key < currNode->get_data())
+    {
+        return search_helper(key, currNode->get_left());
+    }
+    else if(key > currNode->get_data())
+    {
+        return search_helper(key, currNode->get_right());
+    
+    }
+    return currNode;
+}
 
 
 template<class T>
