@@ -43,6 +43,10 @@ private:
 
     Node<T>* insert_helper(Node<T>*, T);
     Node<T>* search_helper(T, Node<T>*);
+    
+    void inorder_helper(std::vector<T>*, Node<T>*);
+    void preorder_helper(std::vector<T>*, Node<T>*);
+    void postorder_helper(std::vector<T>*, Node<T>*);
  
 
 };
@@ -68,25 +72,56 @@ template<class T>
  std::vector<T> * BST<T>::inorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-
+    inorder_helper(vec, root);
     return vec;
 }
 
-
+template<class T>
+void BST<T>::inorder_helper(std::vector<T> *_vctr, Node<T>* currNode)
+{
+    if(currNode != NULL)
+    {
+        inorder_helper(_vctr, currNode->get_left());
+        _vctr->push_back(currNode->get_data());
+        inorder_helper(_vctr, currNode->get_right());
+    }
+}
 template<class T>
  std::vector<T> * BST<T>::preorder()
 {
     std::vector<T> *vec = new std::vector<T>;
+    preorder_helper(vec, root);
     return vec;
 }
-
+template<class T>
+void BST<T>::preorder_helper(std::vector<T> *_vctr, Node<T>* currNode)
+{
+    if(currNode != NULL)
+    {
+        _vctr->push_back(currNode->get_data());
+        preorder_helper(_vctr, currNode->get_left());
+        preorder_helper(_vctr, currNode->get_right());
+    }
+}
 
 template<class T>
  std::vector<T> * BST<T>::postorder()
 {
     std::vector<T> *vec = new std::vector<T>;
-
+    postorder_helper(vec, root);
     return vec;
+}
+
+
+template<class T>
+void BST<T>::postorder_helper(std::vector<T> *_vctr, Node<T>* currNode)
+{
+    if(currNode != NULL)
+    {
+        postorder_helper(_vctr, currNode->get_left());
+        postorder_helper(_vctr, currNode->get_right());
+        _vctr->push_back(currNode->get_data());
+    }
 }
 
 //insert function that calls insert_helper function
@@ -155,9 +190,8 @@ Node<T>* BST<T>::search_helper(T key, Node<T> *currNode)
 template<class T>
 void BST<T>::remove(T val)
 {
-
+    
 }
-
 
 
 template<class T>
