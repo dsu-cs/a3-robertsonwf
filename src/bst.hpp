@@ -190,8 +190,17 @@ Node<T>* BST<T>::search_helper(T key, Node<T> *currNode)
 template<class T>
 void BST<T>::remove(T val)
 {
-    
+    Node<T>* par == NULL;
+    Node<T>* cur == root;
+
+    while (cur != NULL){
+        if (ur->get_data() == val)
+        {
+        
+        }
+    }
 }
+
 
 
 template<class T>
